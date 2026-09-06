@@ -24,6 +24,16 @@ const _getImg = (bucket, file, fallback) => {
   return fallback;
 };
 
+function getFallback(url) {
+  if (!url) return '';
+  const filename = url.split('/').pop().split('?')[0];
+  if (url.startsWith('http')) {
+    return `assets/images/${filename}`;
+  } else {
+    return `https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/${filename}`;
+  }
+}
+
 function getGalleryDataset() {
   if (typeof window !== 'undefined' && window.GrootStore) {
     const items = window.GrootStore.getGallery(false);
@@ -33,7 +43,7 @@ function getGalleryDataset() {
         alt: item.title,
         category: item.category || 'property',
         assignedRoom: item.assignedRoom || 'property',
-        fallback: item.url.startsWith('http') ? item.url : `assets/images/${item.url.split('/').pop()}`
+        fallback: getFallback(item.url)
       }));
     }
   }

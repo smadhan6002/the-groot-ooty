@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore Ooty | The Groot Ooty</title>
+  <meta name="description" content="Discover the best of Ooty from The Groot — Botanical Garden, Ooty Lake, Doddabetta, Pykara, tea plantations and more. Complete local guide." />
+  <link rel="icon" href="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/IMG-20260821-WA0039_4k.webp" type="image/jpeg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="css/variables.css?v=3.1" />
+  <link rel="stylesheet" href="css/base.css?v=3.1" />
+  <link rel="stylesheet" href="css/animations.css?v=3.1" />
+  <link rel="stylesheet" href="css/components.css?v=3.1" />
+  <link rel="stylesheet" href="css/header.css?v=3.1" />
+  <link rel="stylesheet" href="css/sections.css?v=3.1" />
+  <link rel="stylesheet" href="css/footer.css?v=3.1" />
+
+  <style>
+    .ooty-hero {
+      position: relative;
+      height: 65vh;
+      min-height: 440px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      background: #FFFFFF;
+      padding-top: var(--nav-height);
+    }
+    .ooty-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .ooty-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17,27,18,0.92) 0%, rgba(17,27,18,0.40) 60%, transparent 100%);
+    }
+    .ooty-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2.5rem var(--container-pad);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .ooty-intro {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 3.5rem;
+    }
+    .ooty-grid-full {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .ooty-card-full {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      color: var(--card-text);
+      transition: transform var(--dur-base) var(--ease-snappy), box-shadow var(--dur-base) var(--ease-snappy);
+    }
+    .ooty-card-full:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .ooty-card-img-wrap {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+    .ooty-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-snappy);
+    }
+    .ooty-card-full:hover .ooty-card-img-wrap img {
+      transform: scale(1.06);
+    }
+    .ooty-card-body-full {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .ooty-card-title-full {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-cream);
+      margin-bottom: 0.5rem;
+    }
+    .ooty-card-desc-full {
+      font-size: var(--text-sm);
+      color: var(--card-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+    .ooty-card-dist {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #89D97B;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    @media(max-width:1024px){ .ooty-grid-full{grid-template-columns:repeat(2, 1fr);} }
+    @media(max-width:640px){ .ooty-grid-full{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-name">The Groot</span>
+        <span class="logo-location">Ooty, Tamil Nadu</span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link">Stay</a>
+        <a href="experiences.html" class="nav-link">Experiences</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="ooty.html" class="nav-link active">Ooty</a>
+        <a href="reviews.html" class="nav-link">Reviews</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="booking.html" class="btn btn-primary btn-sm">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog">
+    <nav class="mobile-menu-nav">
+      <a href="index.html" class="mobile-nav-link">Home <span class="arrow">&rarr;</span></a>
+      <a href="rooms.html" class="mobile-nav-link">Stay & Rooms <span class="arrow">&rarr;</span></a>
+      <a href="experiences.html" class="mobile-nav-link">Experiences <span class="arrow">&rarr;</span></a>
+      <a href="gallery.html" class="mobile-nav-link">Gallery <span class="arrow">&rarr;</span></a>
+      <a href="ooty.html" class="mobile-nav-link active">Ooty Guide <span class="arrow">&rarr;</span></a>
+      <a href="reviews.html" class="mobile-nav-link">Reviews <span class="arrow">&rarr;</span></a>
+      <a href="contact.html" class="mobile-nav-link">Contact <span class="arrow">&rarr;</span></a>
+    </nav>
+    <div class="mobile-menu-actions">
+      <a href="booking.html" class="btn btn-primary btn-block">Check Availability</a>
+      <button onclick="quickWhatsApp()" class="btn btn-whatsapp btn-block">WhatsApp Direct</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="ooty-hero">
+    <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/1000032835_professional_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/1000032835_professional_4k.webp";" alt="Ooty morning mist over Nilgiri hills" fetchpriority="high" />
+    <div class="ooty-hero-overlay"></div>
+    <div class="ooty-hero-content">
+      <span class="section-overline on-dark">Local Sightseeing Guide</span>
+      <h1 class="display-lg" style="color:var(--color-cream); margin-bottom: 0.5rem;">Explore Ooty</h1>
+      <p style="font-size:1.15rem;color:var(--card-text-muted);font-weight:300;max-width:560px;line-height:1.65;">
+        All of the Queen of Hill Stations is easily reachable from your peaceful base at The Groot.
+      </p>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="ooty-intro" data-reveal="fade-up">
+        <span class="section-overline">Queen of the Nilgiris</span>
+        <h2 class="display-md" style="color:var(--text-primary); margin-bottom: 1rem;">
+          Land of Misty Hills & Tea Estates
+        </h2>
+        <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8;">
+          Sitting at 2,240 metres elevation, Ooty (Udhagamandalam) features rolling emerald plantations, heritage colonial architecture, serene lakes, and cool mountain breezes. Here are the top nearby attractions to visit while staying at The Groot:
+        </p>
+      </div>
+
+      <!-- Attractions Grid (11 places) -->
+      <div class="ooty-grid-full">
+        <!-- 1. Botanical Garden -->
+        <div class="ooty-card-full" data-reveal="card">
+          <div class="ooty-card-img-wrap">
+            <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/botanical_garden_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/botanical_garden_4k.webp";" alt="Government Botanical Garden Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Government Botanical Garden</h3>
+            <p class="ooty-card-desc-full">A 55-acre terraced garden established in 1848, featuring thousands of exotic floral species and a 20-million-year-old fossilized tree trunk.</p>
+            <div class="ooty-card-dist">📍 ~5 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 2. St. Stephen's Church -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="50">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/st_stephens_church_4k.webp" alt="St. Stephen's Church Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">St. Stephen's Church</h3>
+            <p class="ooty-card-desc-full">Historic 19th-century church with magnificent stained-glass windows and massive timber beams hauled from Tipu Sultan's island palace.</p>
+            <div class="ooty-card-dist">📍 ~4 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 3. Rose Garden -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="100">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/rose_garden_4k.webp" alt="Government Rose Garden Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Government Rose Garden</h3>
+            <p class="ooty-card-desc-full">India's largest rose garden with over 20,000 varieties across five curved terraces, creating a vibrant sea of fragrance and color.</p>
+            <div class="ooty-card-dist">📍 ~6 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 4. Raj Bhavan -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="150">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/raj_bhavan_4k.webp" alt="Raj Bhavan Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Raj Bhavan</h3>
+            <p class="ooty-card-desc-full">The stately summer residence of the Governor of Tamil Nadu, built in 1877, perched above pristine landscaped lawns and gardens.</p>
+            <div class="ooty-card-dist">📍 ~4.5 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 5. Ooty Lake -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="200">
+          <div class="ooty-card-img-wrap">
+            <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/ooty_lake_boat_house_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/ooty_lake_boat_house_4k.webp";" alt="Ooty Lake and Boat House" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Ooty Lake & Boat House</h3>
+            <p class="ooty-card-desc-full">An artificial 65-acre lake built in 1824, ideal for motor, row, and pedal boating framed by eucalyptus groves.</p>
+            <div class="ooty-card-dist">📍 ~6 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 6. Doddabetta Peak -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="250">
+          <div class="ooty-card-img-wrap">
+            <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/doddabetta_peak_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/doddabetta_peak_4k.webp";" alt="Doddabetta Peak Viewpoint" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Doddabetta Peak</h3>
+            <p class="ooty-card-desc-full">The highest summit in the Nilgiris at 2,637 metres elevation. Offers panoramic telescope views across the mist-shrouded mountain ranges.</p>
+            <div class="ooty-card-dist">📍 ~9 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 7. Tea Factory & Museum -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="300">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/tea_factory_4k.webp" alt="Tea Factory & Tea Museum Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Tea Factory & Museum</h3>
+            <p class="ooty-card-desc-full">Witness the full tea-making process from fresh leaf to finished blend, complete with hot tasting samples and freshly ground spices.</p>
+            <div class="ooty-card-dist">📍 ~8 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 8. Ketti Valley -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="350">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/ketti_valley_4k.webp" alt="Ketti Valley View Point" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Ketti Valley View Point</h3>
+            <p class="ooty-card-desc-full">Known as the 'Switzerland of Nilgiris', this vast lush valley extends between Ooty and Coonoor, dotted with quaint hillside settlements.</p>
+            <div class="ooty-card-dist">📍 ~12 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 9. Pykara Waterfalls -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="400">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/pykara_waterfalls_4k.webp" alt="Pykara Waterfalls" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Pykara Waterfalls</h3>
+            <p class="ooty-card-desc-full">Sacred river cascades over stepped boulders into forest pools, featuring speed-boat cruises on the pristine Pykara reservoir nearby.</p>
+            <div class="ooty-card-dist">📍 ~20 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 10. Emerald Lake -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="450">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/emerald_lake_4k.webp" alt="Emerald Lake Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Emerald Lake</h3>
+            <p class="ooty-card-desc-full">A tranquil, untouched turquoise lake located in the Silent Valley region, famous for birds, pine forests, and serene solitude.</p>
+            <div class="ooty-card-dist">📍 ~22 km from The Groot</div>
+          </div>
+        </div>
+
+        <!-- 11. Avalanche Lake -->
+        <div class="ooty-card-full" data-reveal="card" data-delay="500">
+          <div class="ooty-card-img-wrap">
+            <img src="assets/images/avalanche_lake_4k.webp" alt="Avalanche Lake Ooty" loading="lazy" decoding="async" />
+          </div>
+          <div class="ooty-card-body-full">
+            <h3 class="ooty-card-title-full">Avalanche Lake</h3>
+            <p class="ooty-card-desc-full">Dense shola forests, crystal-clear water, and blossoming rhododendrons make this protected sanctuary one of the most stunning in South India.</p>
+            <div class="ooty-card-dist">📍 ~25 km from The Groot</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box" data-reveal="scale">
+        <h2 class="cta-title">Start Your Ooty Journey</h2>
+        <p class="cta-subtitle">Book your stay at The Groot and explore all these magnificent Nilgiri destinations with ease.</p>
+        <div class="cta-actions">
+          <a href="booking.html" class="btn btn-primary btn-xl">Check Availability</a>
+          <button onclick="quickWhatsApp()" class="btn btn-whatsapp btn-xl">WhatsApp Direct</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="site-logo">
+            <span class="logo-name">The Groot</span>
+            <span class="logo-location">Ooty, Tamil Nadu</span>
+          </a>
+          <p class="footer-brand-desc">A cozy boutique stay in the Nilgiri hills. Featuring A-Frame cabins, Glass House, campfire evenings, and warm hospitality.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">Explore</h4>
+          <nav class="footer-nav">
+            <a href="rooms.html" class="footer-link">Rooms & Cabins</a>
+            <a href="experiences.html" class="footer-link">Experiences</a>
+            <a href="gallery.html" class="footer-link">Photo Gallery</a>
+            <a href="ooty.html" class="footer-link">Ooty Attractions</a>
+          </nav>
+        </div>
+        <div>
+          <h4 class="footer-title">Booking</h4>
+          <nav class="footer-nav">
+            <a href="booking.html" class="footer-link">Check Availability</a>
+            <a href="contact.html" class="footer-link">Contact Us</a>
+            <a href="admin.html" class="footer-link" style="opacity:0.75;">Admin Portal</a>
+          </nav>
+        </div>
+        <div>
+          <h4 class="footer-title">Contact</h4>
+          <div class="footer-nav">
+            <a href="tel:6382316323" class="footer-contact-item" data-phone="1">📞 6382316323</a>
+            <a href="tel:7395965006" class="footer-contact-item" data-phone="2">📞 7395965006</a>
+            <div class="footer-contact-item">📍 Pudumund, Ooty, Tamil Nadu 643001</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Groot Ooty. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html" class="footer-bottom-link">Contact</a>
+          <a href="booking.html" class="footer-bottom-link">Book Direct</a>
+          <a href="admin.html" class="footer-bottom-link" style="opacity:0.7;">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/store.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

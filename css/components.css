@@ -1,0 +1,447 @@
+/* =========================================================
+   THE GROOT OOTY — Components (Buttons, Cards, Badges, Forms)
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   BUTTONS
+   --------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 12px 26px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-full);
+  transition: all var(--dur-fast) var(--ease-snappy);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  box-sizing: border-box;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary Button (Mantis Green on White Page, High Contrast) */
+.btn-primary {
+  background-color: var(--color-mantis);
+  color: #FFFFFF;
+  border-color: var(--color-mantis);
+  box-shadow: 0 4px 14px rgba(116, 195, 101, 0.30);
+}
+
+.btn-primary:hover {
+  background-color: #5ebd4e;
+  border-color: #5ebd4e;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(116, 195, 101, 0.40);
+  transform: translateY(-2px);
+}
+
+/* Outline Button (Dark High-Contrast Border) */
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--text-primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Outline on Dark / Image */
+.btn-outline-light {
+  background-color: transparent;
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline-light:hover {
+  background-color: #FFFFFF;
+  color: #111111;
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+/* WhatsApp Direct Button */
+.btn-whatsapp {
+  background-color: var(--color-whatsapp);
+  color: #FFFFFF;
+  border-color: var(--color-whatsapp);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.btn-whatsapp:hover {
+  background-color: var(--color-whatsapp-hover);
+  border-color: var(--color-whatsapp-hover);
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background-color: rgba(116, 195, 101, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(116, 195, 101, 0.25);
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-mantis);
+  color: #FFFFFF;
+  border-color: var(--color-mantis);
+  transform: translateY(-2px);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 8px 18px;
+  font-size: var(--text-xs);
+}
+
+.btn-lg {
+  padding: 15px 32px;
+  font-size: var(--text-base);
+}
+
+.btn-xl {
+  padding: 18px 40px;
+  font-size: var(--text-md);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ---------------------------------------------------------
+   CARDS & CONTAINERS
+   --------------------------------------------------------- */
+
+.card-dark {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--card-text);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-base) var(--ease-snappy),
+              box-shadow var(--dur-base) var(--ease-snappy);
+}
+
+.card-dark:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Room Cards */
+.room-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  color: var(--card-text);
+  text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-snappy),
+              box-shadow var(--dur-base) var(--ease-snappy);
+}
+
+.room-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.room-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.room-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s var(--ease-snappy);
+}
+
+.room-card:hover .room-card-img-wrap img {
+  transform: scale(1.06);
+}
+
+.room-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(17, 27, 18, 0.75) 0%,
+    rgba(17, 27, 18, 0.15) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.room-card-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(17, 27, 18, 0.85);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  z-index: 2;
+}
+
+.room-card-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.room-card-name {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+.room-card-desc {
+  font-size: var(--text-sm);
+  color: var(--card-text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.room-card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.feature-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.20);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.room-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.20);
+  margin-top: auto;
+}
+
+.room-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #FFFFFF;
+  transition: gap 0.2s ease;
+}
+
+.room-card:hover .room-card-cta {
+  gap: 10px;
+  color: #FFFFFF;
+}
+
+/* ---------------------------------------------------------
+   BADGES & PILLS
+   --------------------------------------------------------- */
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: var(--color-mantis);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  display: inline-block;
+}
+
+/* ---------------------------------------------------------
+   REVIEWS CARD
+   --------------------------------------------------------- */
+
+.review-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--card-text);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.review-stars {
+  display: flex;
+  gap: 3px;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.review-text {
+  font-size: var(--text-base);
+  color: var(--card-text-muted);
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+.review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.review-author-name {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: #FFFFFF;
+}
+
+.review-author-source {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------------------------------------------------------
+   OOTY ATTRACTIONS CARD
+   --------------------------------------------------------- */
+
+.ooty-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  color: var(--card-text);
+  text-decoration: none;
+  transition: transform var(--dur-base) var(--ease-snappy),
+              box-shadow var(--dur-base) var(--ease-snappy);
+}
+
+.ooty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ooty-card-img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-snappy);
+}
+
+.ooty-card:hover .ooty-card-img {
+  transform: scale(1.05);
+}
+
+.ooty-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.ooty-card-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 0.35rem;
+}
+
+.ooty-card-desc {
+  font-size: var(--text-sm);
+  color: var(--card-text-muted);
+  line-height: 1.5;
+}
+
+.ooty-card-dist {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | The Groot Ooty</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/IMG-20260821-WA0039_4k.webp" type="image/jpeg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="css/variables.css?v=3.2" />
+  <link rel="stylesheet" href="css/admin.css?v=3.2" />
+</head>
+<body class="admin-body">
+
+  <!-- =========================================================
+       1. AUTH / LOGIN SCREEN
+       ========================================================= -->
+  <div id="admin-auth-screen" class="admin-auth-container">
+    <div class="admin-login-card">
+      <div class="admin-login-logo">The Groot Ooty</div>
+      <div class="admin-login-sub">Admin Pricing Portal</div>
+      <p class="admin-login-desc">
+        Enter the administrative passcode to manage room and property pricing.
+      </p>
+
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
+        <div class="admin-form-group" style="text-align:left;">
+          <label class="admin-label" for="admin-email">Email</label>
+          <input
+            type="email"
+            id="admin-email"
+            class="admin-input"
+            placeholder="Enter your email"
+            required
+            autocomplete="email"
+          />
+        </div>
+        <div class="admin-form-group" style="text-align:left;">
+          <label class="admin-label" for="admin-passcode">Password</label>
+          <input
+            type="password"
+            id="admin-passcode"
+            class="admin-input"
+            placeholder="Enter password"
+            required
+            autocomplete="current-password"
+          />
+        </div>
+        <div id="admin-login-error" style="color:var(--admin-danger); font-size:0.85rem; margin-bottom:1rem; display:none;">
+          Invalid username or password. Please try again.
+        </div>
+        <button type="submit" class="admin-btn admin-btn-primary" style="width:100%; padding:12px;">
+          Unlock Dashboard &rarr;
+        </button>
+      </form>
+      <div style="margin-top: 1.5rem;">
+        <a href="index.html" style="color:var(--admin-text-muted); font-size:0.85rem; text-decoration:none;">
+          &larr; Return to Public Website
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       2. PROTECTED DASHBOARD
+       ========================================================= -->
+  <div id="admin-dashboard-screen" class="admin-dashboard-wrap">
+    
+    <!-- Admin Top Nav -->
+    <header class="admin-nav">
+      <div class="admin-nav-brand">
+        <a href="index.html" class="admin-nav-logo">The Groot</a>
+        <span class="admin-badge">Pricing Admin</span>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="admin-tabs" role="tablist">
+        <button class="admin-tab-btn active" data-tab="dashboard" role="tab">Dashboard</button>
+        <button class="admin-tab-btn" data-tab="rooms" role="tab">Rooms & Pricing</button>
+        <button class="admin-tab-btn" data-tab="gallery" role="tab">Gallery (Read-Only)</button>
+        <button class="admin-tab-btn" data-tab="settings" role="tab">Property Info (Read-Only)</button>
+      </nav>
+
+      <!-- Actions -->
+      <div class="admin-nav-actions">
+        <a href="index.html" target="_blank" class="admin-btn admin-btn-outline" style="font-size:0.8rem;">
+          ↗ View Live Site
+        </a>
+        <button onclick="handleAdminLogout()" class="admin-btn admin-btn-outline" style="font-size:0.8rem;">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Content Area -->
+    <main class="admin-main">
+
+      <!-- =====================================================
+           TAB 1: OVERVIEW DASHBOARD
+           ===================================================== -->
+      <div id="tab-dashboard" class="admin-tab-content active">
+        <!-- Stat Cards -->
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Total Rooms</div>
+            <div class="admin-stat-value" id="stat-total-rooms">4</div>
+            <div class="admin-stat-sub">Managed accommodations</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Pricing Status</div>
+            <div class="admin-stat-value" style="color:#74C365;">Active</div>
+            <div class="admin-stat-sub">Live synchronized pricing</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">Currency</div>
+            <div class="admin-stat-value" style="color:#74C365;">₹ INR</div>
+            <div class="admin-stat-sub">Indian Rupee per night</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-label">System Mode</div>
+            <div class="admin-stat-value" style="font-size:1.4rem; color:var(--admin-accent-glow); padding-top:6px;">Price Edit Only</div>
+            <div class="admin-stat-sub">Content locked & protected</div>
+          </div>
+        </div>
+
+        <!-- Quick Room Pricing Overview Section -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Live Room Pricing</h2>
+              <p style="font-size:0.85rem; color:var(--admin-text-muted); margin:4px 0 0;">
+                Change nightly rates below and click <strong>Save</strong>. Changes immediately update across all public booking and room listings.
+              </p>
+            </div>
+            <button onclick="switchTab('rooms')" class="admin-btn admin-btn-outline">
+              Manage Pricing Cards &rarr;
+            </button>
+          </div>
+
+          <div id="dashboard-rooms-table-wrap">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           TAB 2: ROOMS & PRICING MANAGEMENT
+           ===================================================== -->
+      <div id="tab-rooms" class="admin-tab-content">
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Room Pricing Management</h2>
+              <p style="font-size:0.85rem; color:var(--admin-text-muted); margin:4px 0 0;">
+                Room details and descriptions are locked. Update nightly rates (₹) and save instantly.
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Room Cards Grid -->
+          <div class="admin-room-grid" id="admin-rooms-list">
+            <!-- Rendered dynamically by js/admin.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           TAB 3: GALLERY & PHOTO (READ-ONLY)
+           ===================================================== -->
+      <div id="tab-gallery" class="admin-tab-content">
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Photo Gallery (Read-Only)</h2>
+              <p style="font-size:0.85rem; color:var(--admin-text-muted); margin:4px 0 0;">
+                🔒 Read-Only: Photography catalogue is managed by system configuration.
+              </p>
+            </div>
+          </div>
+
+          <!-- Gallery Grid (Read-Only) -->
+          <div class="admin-gallery-grid" id="admin-gallery-list">
+            <!-- Rendered dynamically by js/admin.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           TAB 4: PROPERTY INFO (READ-ONLY)
+           ===================================================== -->
+      <div id="tab-settings" class="admin-tab-content">
+        <div class="admin-section" style="max-width:720px;">
+          <div class="admin-section-header">
+            <div>
+              <h2 class="admin-section-title">Property Information (Read-Only)</h2>
+              <p style="font-size:0.85rem; color:var(--admin-text-muted); margin:4px 0 0;">
+                🔒 Read-Only: Contact numbers, WhatsApp routing, and stay policies are locked to system defaults.
+              </p>
+            </div>
+          </div>
+
+          <form id="admin-settings-form" onsubmit="event.preventDefault()">
+            <div class="admin-form-group">
+              <label class="admin-label" for="set-whatsapp">WhatsApp Number (For Direct Bookings)</label>
+              <input type="text" id="set-whatsapp" class="admin-input" readonly disabled style="opacity:0.8; cursor:not-allowed;" />
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div class="admin-form-group">
+                <label class="admin-label" for="set-phone1">Primary Phone</label>
+                <input type="text" id="set-phone1" class="admin-input" readonly disabled style="opacity:0.8; cursor:not-allowed;" />
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-label" for="set-phone2">Alternate Phone</label>
+                <input type="text" id="set-phone2" class="admin-input" readonly disabled style="opacity:0.8; cursor:not-allowed;" />
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div class="admin-form-group">
+                <label class="admin-label" for="set-checkin">Check-in Time</label>
+                <input type="text" id="set-checkin" class="admin-input" readonly disabled style="opacity:0.8; cursor:not-allowed;" />
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-label" for="set-checkout">Check-out Time</label>
+                <input type="text" id="set-checkout" class="admin-input" readonly disabled style="opacity:0.8; cursor:not-allowed;" />
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-label" for="set-note">Booking Instruction Note</label>
+              <textarea id="set-note" class="admin-textarea" rows="3" readonly disabled style="opacity:0.8; cursor:not-allowed;"></textarea>
+            </div>
+
+            <div style="margin-top:1.5rem; padding:1rem; background:rgba(116,195,101,0.08); border:1px solid rgba(116,195,101,0.2); border-radius:8px; font-size:0.85rem; color:var(--admin-accent-glow); display:flex; align-items:center; gap:8px;">
+              <span>🔒</span>
+              <span>All property settings and contact channels are locked to ensure brand consistency.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =========================================================
+       3. EDIT ROOM PRICE MODAL (PRICE ONLY)
+       ========================================================= -->
+  <div id="admin-room-modal" class="admin-modal" role="dialog" aria-modal="true">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-room-title">Edit Room Price</h3>
+        <button onclick="closeRoomModal()" class="admin-modal-close">&times;</button>
+      </div>
+      <form id="admin-room-edit-form" onsubmit="handleSaveRoomModal(event)">
+        <input type="hidden" id="modal-room-id" />
+        
+        <div class="admin-form-group">
+          <label class="admin-label" for="modal-room-name">Accommodation (Read-Only)</label>
+          <input type="text" id="modal-room-name" class="admin-input" readonly disabled style="opacity:0.85; cursor:not-allowed;" />
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-label" for="modal-room-price">Price per Night (₹ INR) — Editable</label>
+          <input type="number" id="modal-room-price" class="admin-input" required min="0" step="100" style="font-size:1.2rem; font-weight:700; color:var(--admin-accent-glow);" />
+          <p style="font-size:0.75rem; color:var(--admin-text-muted); margin-top:4px;">
+            Enter the updated nightly tariff. Saving updates the booking engine and live room cards.
+          </p>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:1.5rem;">
+          <button type="button" onclick="closeRoomModal()" class="admin-btn admin-btn-outline">Cancel</button>
+          <button type="submit" class="admin-btn admin-btn-primary">💾 Save New Price</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="admin-toast" class="admin-toast">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">Price saved successfully.</span>
+  </div>
+
+  <script type="module" src="js/store.js?v=5.0"></script>
+  <script type="module" src="js/admin.js?v=4.2"></script>
+</body>
+</html>

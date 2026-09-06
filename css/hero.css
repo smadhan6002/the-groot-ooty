@@ -1,0 +1,201 @@
+/* =========================================================
+   THE GROOT OOTY — Hero Section (Cinematic & Atmospheric)
+   ========================================================= */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--nav-height) + 2rem);
+  padding-bottom: 3.5rem;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+
+/* Hero Background Image */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  transform: scale(1.02);
+  transition: transform 1.2s ease-out;
+}
+
+@media (min-width: 1024px) {
+  .hero-bg-img {
+    object-position: center 35%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero-bg-img {
+    object-position: center 32%;
+  }
+}
+
+/* Atmospheric Overlays */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(17, 27, 18, 0.85) 0%,
+    rgba(17, 27, 18, 0.52) 50%,
+    rgba(17, 27, 18, 0.30) 100%
+  ),
+  linear-gradient(
+    to top,
+    rgba(17, 27, 18, 0.92) 0%,
+    rgba(17, 27, 18, 0.20) 35%,
+    transparent 65%
+  );
+}
+
+.hero-mist {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Content Container */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-overline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  animation: heroFadeInUp 0.6s var(--ease-snappy) 0.1s both;
+}
+
+.hero-overline-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #89D97B;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-cream);
+  margin-bottom: var(--space-5);
+  max-width: 900px;
+  animation: heroFadeInUp 0.6s var(--ease-snappy) 0.2s both;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: #89D97B;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(250, 247, 242, 0.85);
+  max-width: 620px;
+  margin-bottom: var(--space-7);
+  animation: heroFadeInUp 0.6s var(--ease-snappy) 0.3s both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  animation: heroFadeInUp 0.6s var(--ease-snappy) 0.4s both;
+}
+
+/* Floating Feature Badges at Bottom of Hero */
+.hero-badges-ribbon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  padding-top: var(--space-5);
+  border-top: 1px solid rgba(250, 247, 242, 0.15);
+  animation: heroFadeInUp 0.6s var(--ease-snappy) 0.5s both;
+}
+
+.hero-badge-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-cream);
+}
+
+.hero-badge-item svg {
+  width: 18px;
+  height: 18px;
+  color: #89D97B;
+  flex-shrink: 0;
+}
+
+/* Animations */
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--nav-height) + 3rem);
+    padding-bottom: 3.5rem;
+  }
+  .hero-bg-img {
+    object-position: center 30%;
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 10vw, 3.25rem);
+  }
+  .hero-badges-ribbon {
+    gap: var(--space-4);
+  }
+  .hero-badge-item {
+    font-size: var(--text-xs);
+  }
+}

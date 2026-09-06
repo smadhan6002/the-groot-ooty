@@ -1,0 +1,190 @@
+/* =========================================================
+   THE GROOT OOTY — Rebuilt Text & Scroll Animations
+   Fast, Smooth, Editorial & Mobile-Safe Motion
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   SCROLL REVEALS (Intersection Observer Triggered)
+   --------------------------------------------------------- */
+
+[data-reveal] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Directions */
+[data-reveal="fade-up"] {
+  transform: translateY(24px);
+}
+
+[data-reveal="fade-down"] {
+  transform: translateY(-20px);
+}
+
+[data-reveal="fade-left"] {
+  transform: translateX(-24px);
+}
+
+[data-reveal="fade-right"] {
+  transform: translateX(24px);
+}
+
+[data-reveal="fade"] {
+  transform: none;
+}
+
+[data-reveal="scale"] {
+  transform: scale(0.96);
+}
+
+/* Editorial Heading Reveal */
+[data-reveal="heading"] {
+  transform: translateY(28px);
+  transition-duration: 0.65s;
+}
+
+/* Editorial Text Reveal */
+[data-reveal="text"] {
+  transform: translateY(18px);
+  transition-duration: 0.55s;
+}
+
+/* Image Subtle Zoom Reveal */
+[data-reveal="image"] {
+  transform: scale(1.04);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s ease;
+}
+
+/* Card Reveal */
+[data-reveal="card"] {
+  transform: translateY(24px) scale(0.98);
+  transition-duration: 0.55s;
+}
+
+/* Revealed State */
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* Staggered Child Delays */
+[data-delay="80"]  { transition-delay: 80ms; }
+[data-delay="100"] { transition-delay: 100ms; }
+[data-delay="150"] { transition-delay: 150ms; }
+[data-delay="200"] { transition-delay: 200ms; }
+[data-delay="250"] { transition-delay: 250ms; }
+[data-delay="300"] { transition-delay: 300ms; }
+[data-delay="350"] { transition-delay: 350ms; }
+[data-delay="400"] { transition-delay: 400ms; }
+[data-delay="500"] { transition-delay: 500ms; }
+
+/* ---------------------------------------------------------
+   HERO ENTRANCE ANIMATIONS
+   --------------------------------------------------------- */
+
+@keyframes heroFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroImageKenBurns {
+  0% {
+    transform: scale(1.04) translateY(0);
+  }
+  50% {
+    transform: scale(1.08) translateY(-1%);
+  }
+  100% {
+    transform: scale(1.04) translateY(0);
+  }
+}
+
+@keyframes shimmerEffect {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(17, 27, 18, 0.20);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(17, 27, 18, 0.40);
+  }
+}
+
+@keyframes floatBadge {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* ---------------------------------------------------------
+   BUTTON & INTERACTION EFFECTS
+   --------------------------------------------------------- */
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg) translateX(-120%);
+  animation: shimmerEffect 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Card Hover Elevation */
+.hover-elevate {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-elevate:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---------------------------------------------------------
+   ACCESSIBILITY OVERRIDE
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

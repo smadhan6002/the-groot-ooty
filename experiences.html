@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiences | The Groot Ooty</title>
+  <meta name="description" content="Campfire nights under starlit skies, authentic home-cooked meals, morning mist walks, and relaxing Nilgiri moments at The Groot Ooty." />
+  <link rel="icon" href="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/IMG-20260821-WA0039_4k.webp" type="image/jpeg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link rel="stylesheet" href="css/variables.css?v=3.1" />
+  <link rel="stylesheet" href="css/base.css?v=3.1" />
+  <link rel="stylesheet" href="css/animations.css?v=3.1" />
+  <link rel="stylesheet" href="css/components.css?v=3.1" />
+  <link rel="stylesheet" href="css/header.css?v=3.1" />
+  <link rel="stylesheet" href="css/sections.css?v=3.1" />
+  <link rel="stylesheet" href="css/footer.css?v=3.1" />
+
+  <style>
+    .exp-hero {
+      position: relative;
+      height: 65vh;
+      min-height: 440px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      background: #FFFFFF;
+      padding-top: var(--nav-height);
+    }
+    .exp-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .exp-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17,27,18,0.92) 0%, rgba(17,27,18,0.40) 60%, transparent 100%);
+    }
+    .exp-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2.5rem var(--container-pad);
+      max-width: var(--container-max);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      align-items: stretch;
+      padding: 4rem var(--container-pad) 5rem;
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+    .exp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      color: var(--card-text);
+      transition: transform var(--dur-base) var(--ease-snappy), box-shadow var(--dur-base) var(--ease-snappy);
+    }
+    .exp-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .exp-card-img-wrap {
+      width: 100%;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+    }
+    .exp-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-snappy);
+    }
+    .exp-card:hover .exp-card-img-wrap img {
+      transform: scale(1.06);
+    }
+    .exp-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .exp-card-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .exp-card-name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--color-cream);
+      margin-bottom: 0.5rem;
+    }
+    .exp-card-desc {
+      font-size: var(--text-sm);
+      color: var(--card-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    @media(max-width:1024px){ .exp-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:640px){ .exp-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-name">The Groot</span>
+        <span class="logo-location">Ooty, Tamil Nadu</span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rooms.html" class="nav-link">Stay</a>
+        <a href="experiences.html" class="nav-link active">Experiences</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="ooty.html" class="nav-link">Ooty</a>
+        <a href="reviews.html" class="nav-link">Reviews</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="booking.html" class="btn btn-primary btn-sm">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog">
+    <nav class="mobile-menu-nav">
+      <a href="index.html" class="mobile-nav-link">Home <span class="arrow">&rarr;</span></a>
+      <a href="rooms.html" class="mobile-nav-link">Stay & Rooms <span class="arrow">&rarr;</span></a>
+      <a href="experiences.html" class="mobile-nav-link active">Experiences <span class="arrow">&rarr;</span></a>
+      <a href="gallery.html" class="mobile-nav-link">Gallery <span class="arrow">&rarr;</span></a>
+      <a href="ooty.html" class="mobile-nav-link">Ooty Guide <span class="arrow">&rarr;</span></a>
+      <a href="reviews.html" class="mobile-nav-link">Reviews <span class="arrow">&rarr;</span></a>
+      <a href="contact.html" class="mobile-nav-link">Contact <span class="arrow">&rarr;</span></a>
+    </nav>
+    <div class="mobile-menu-actions">
+      <a href="booking.html" class="btn btn-primary btn-block">Check Availability</a>
+      <button onclick="quickWhatsApp()" class="btn btn-whatsapp btn-block">WhatsApp Direct</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="exp-hero">
+    <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/1000032841_professional_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/1000032841_professional_4k.webp";" alt="Campfire experience at The Groot Ooty" fetchpriority="high" />
+    <div class="exp-hero-overlay"></div>
+    <div class="exp-hero-content">
+      <span class="section-overline on-dark">The Groot Way of Life</span>
+      <h1 class="display-lg" style="color:var(--color-cream); margin-bottom: 0.5rem;">Experiences</h1>
+      <p style="font-size:1.15rem;color:var(--card-text-muted);font-weight:300;max-width:560px;line-height:1.65;">
+        More than just a room — memorable moments around warm fires, authentic home food, and quiet mountain greenery.
+      </p>
+    </div>
+  </div>
+
+  <!-- Experiences Grid -->
+  <div class="exp-grid">
+    <!-- 1. Campfire -->
+    <div class="exp-card" data-reveal="card">
+      <div class="exp-card-img-wrap">
+        <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/IMG-20260821-WA0036_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/IMG-20260821-WA0036_4k.webp";" alt="Campfire nights at The Groot" loading="lazy" decoding="async" />
+      </div>
+      <div class="exp-card-body">
+        <span class="exp-card-icon">🔥</span>
+        <h2 class="exp-card-name">Campfire Evenings</h2>
+        <p class="exp-card-desc">As the crisp Ooty evening chill sets in, gather around the woodfire under the stars. Enjoy music, storytelling, and hot tea in the garden.</p>
+        <button onclick="campfireWhatsApp()" class="btn btn-primary btn-sm">Enquire on WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- 2. Home Food -->
+    <div class="exp-card" data-reveal="card" data-delay="100">
+      <div class="exp-card-img-wrap">
+        <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/IMG-20260821-WA0041_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/IMG-20260821-WA0041_4k.webp";" alt="Home-cooked South Indian food at The Groot" loading="lazy" decoding="async" />
+      </div>
+      <div class="exp-card-body">
+        <span class="exp-card-icon">🍽️</span>
+        <h2 class="exp-card-name">Home-Cooked Meals</h2>
+        <p class="exp-card-desc">Authentic, comforting Tamil home meals prepared fresh upon request. Traditional spices, piping hot rice, and homemade curries.</p>
+        <button onclick="foodWhatsApp()" class="btn btn-primary btn-sm">Ask About Meals</button>
+      </div>
+    </div>
+
+    <!-- 3. Nilgiri Mornings -->
+    <div class="exp-card" data-reveal="card" data-delay="150">
+      <div class="exp-card-img-wrap">
+        <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/1000032835_professional_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/1000032835_professional_4k.webp";" alt="Misty Nilgiri morning at The Groot" loading="lazy" decoding="async" />
+      </div>
+      <div class="exp-card-body">
+        <span class="exp-card-icon">🌄</span>
+        <h2 class="exp-card-name">Nilgiri Mornings</h2>
+        <p class="exp-card-desc">Wake up to morning mist rolling over the hills, fresh mountain air, and hot South Indian filter coffee in the garden.</p>
+        <a href="booking.html" class="btn btn-primary btn-sm">Book Your Stay</a>
+      </div>
+    </div>
+
+    <!-- 4. Tea Walks -->
+    <div class="exp-card" data-reveal="card" data-delay="200">
+      <div class="exp-card-img-wrap">
+        <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/1000032840_professional_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/experience-images/1000032840_professional_4k.webp";" alt="Tea estate nature walks in Ooty" loading="lazy" decoding="async" />
+      </div>
+      <div class="exp-card-body">
+        <span class="exp-card-icon">🌿</span>
+        <h2 class="exp-card-name">Tea Estate Walks</h2>
+        <p class="exp-card-desc">Explore verdant Nilgiri tea plantations and walking trails right in the neighbourhood of Pudumund.</p>
+        <a href="booking.html" class="btn btn-primary btn-sm">Plan Your Visit</a>
+      </div>
+    </div>
+
+    <!-- 5. Ooty Sightseeing Base -->
+    <div class="exp-card" data-reveal="card" data-delay="250">
+      <div class="exp-card-img-wrap">
+        <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/IMG-20260821-WA0039_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/IMG-20260821-WA0039_4k.webp";" alt="Scenic viewpoints in Ooty" loading="lazy" decoding="async" />
+      </div>
+      <div class="exp-card-body">
+        <span class="exp-card-icon">🧭</span>
+        <h2 class="exp-card-name">Ooty Explorations</h2>
+        <p class="exp-card-desc">Conveniently located near Doddabetta Peak, Government Botanical Garden, Ooty Lake, and the Nilgiri Mountain Railway.</p>
+        <a href="ooty.html" class="btn btn-primary btn-sm">View Ooty Guide</a>
+      </div>
+    </div>
+
+    <!-- 6. Garden & Music Relaxation -->
+    <div class="exp-card" data-reveal="card" data-delay="300">
+      <div class="exp-card-img-wrap">
+        <img src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/1000032834_professional_4k.webp" onerror="this.onerror=null; this.src="https://jritiortuorrpcfkoupf.supabase.co/storage/v1/object/public/gallery/1000032834_professional_4k.webp";" alt="Gardens at The Groot Ooty" loading="lazy" decoding="async" />
+      </div>
+      <div class="exp-card-body">
+        <span class="exp-card-icon">🎵</span>
+        <h2 class="exp-card-name">Music & Relaxation</h2>
+        <p class="exp-card-desc">Unwind on the outdoor deck with soothing music, fresh eucalyptus breeze, and peaceful garden surroundings.</p>
+        <a href="booking.html" class="btn btn-primary btn-sm">Check Availability</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box" data-reveal="scale">
+        <h2 class="cta-title">Experience The Groot</h2>
+        <p class="cta-subtitle">Reserve your cabin now or speak directly with our team on WhatsApp.</p>
+        <div class="cta-actions">
+          <a href="booking.html" class="btn btn-primary btn-xl">Check Availability</a>
+          <button onclick="quickWhatsApp()" class="btn btn-whatsapp btn-xl">WhatsApp Direct</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="site-logo">
+            <span class="logo-name">The Groot</span>
+            <span class="logo-location">Ooty, Tamil Nadu</span>
+          </a>
+          <p class="footer-brand-desc">A cozy boutique stay in the Nilgiri hills. Featuring A-Frame cabins, Glass House, campfire evenings, and warm hospitality.</p>
+        </div>
+        <div>
+          <h4 class="footer-title">Explore</h4>
+          <nav class="footer-nav">
+            <a href="rooms.html" class="footer-link">Rooms & Cabins</a>
+            <a href="experiences.html" class="footer-link">Experiences</a>
+            <a href="gallery.html" class="footer-link">Photo Gallery</a>
+            <a href="ooty.html" class="footer-link">Ooty Attractions</a>
+          </nav>
+        </div>
+        <div>
+          <h4 class="footer-title">Booking</h4>
+          <nav class="footer-nav">
+            <a href="booking.html" class="footer-link">Check Availability</a>
+            <a href="contact.html" class="footer-link">Contact Us</a>
+            <a href="admin.html" class="footer-link" style="opacity:0.75;">Admin Portal</a>
+          </nav>
+        </div>
+        <div>
+          <h4 class="footer-title">Contact</h4>
+          <div class="footer-nav">
+            <a href="tel:6382316323" class="footer-contact-item" data-phone="1">📞 6382316323</a>
+            <a href="tel:7395965006" class="footer-contact-item" data-phone="2">📞 7395965006</a>
+            <div class="footer-contact-item">📍 Pudumund, Ooty, Tamil Nadu 643001</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Groot Ooty. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html" class="footer-bottom-link">Contact</a>
+          <a href="booking.html" class="footer-bottom-link">Book Direct</a>
+          <a href="admin.html" class="footer-bottom-link" style="opacity:0.7;">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/store.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

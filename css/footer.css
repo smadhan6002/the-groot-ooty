@@ -1,0 +1,184 @@
+/* =========================================================
+   THE GROOT OOTY — Footer (Mantis Green Card on White Page)
+   ========================================================= */
+
+#site-footer {
+  background-color: #FFFFFF;
+  padding: 1.5rem 0 3rem;
+  position: relative;
+  z-index: 10;
+}
+
+#site-footer .container {
+  background-color: var(--color-mantis);
+  border-radius: var(--radius-2xl);
+  padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem) 2rem;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.25fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand .site-logo .logo-name {
+  color: #FFFFFF;
+}
+
+.footer-brand .site-logo .logo-location {
+  color: rgba(255, 255, 255, 0.90);
+}
+
+.footer-brand-desc {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.65;
+  margin-top: 1rem;
+  max-width: 320px;
+}
+
+.footer-title {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-link {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.90);
+  text-decoration: none;
+  transition: color var(--dur-fast) ease, transform var(--dur-fast) ease;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.90);
+  margin-bottom: 0.85rem;
+  text-decoration: none;
+}
+
+.footer-contact-item svg {
+  color: #FFFFFF;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.footer-contact-item:hover {
+  color: #FFFFFF;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.20);
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.88);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-bottom-link {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+}
+
+.footer-bottom-link:hover {
+  color: #FFFFFF;
+}
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+  
+  .footer-grid > div,
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-brand-desc {
+    max-width: 100%;
+    margin: 1rem auto 0;
+  }
+
+  .footer-title {
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-nav {
+    align-items: center;
+    width: 100%;
+  }
+
+  .footer-contact-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .footer-contact-item svg {
+    margin-top: 0;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .footer-bottom-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

@@ -161,7 +161,10 @@ function switchTab(tabId) {
    3. DATA LOADING & RENDERING
    --------------------------------------------------------- */
 
-function loadDashboardData() {
+async function loadDashboardData() {
+  if (window.GrootStore) {
+    await window.GrootStore.fetchLiveRooms();
+  }
   renderDashboardOverview();
   renderRoomsManagement();
   renderGalleryManagement();
@@ -281,7 +284,7 @@ function renderRoomsManagement() {
           <button onclick="openRoomModal('${r.id}')" class="admin-btn admin-btn-outline" style="flex:1;">
             Edit Price
           </button>
-          <a href="room-detail.html?room=${r.id}" target="_blank" class="admin-btn admin-btn-outline" style="font-size:0.8rem;" title="View public live room page">
+          <a href="room-detail.html?room=${r.slug || r.id}" target="_blank" class="admin-btn admin-btn-outline" style="font-size:0.8rem;" title="View public live room page">
             ↗ Preview Live
           </a>
         </div>
@@ -311,11 +314,12 @@ async function saveQuickPrice(roomId) {
   btn.innerHTML = originalText;
   btn.disabled = false;
 
+  const currentRoom = result.room || window.GrootStore.getRoom(roomId);
+
   if (result && result.success) {
-    showToast(`Updated price for ${roomId.toUpperCase()} to ₹${newPrice.toLocaleString()}`);
+    showToast(`Updated price for ${currentRoom ? currentRoom.name : 'Room'} to ₹${newPrice.toLocaleString()}`);
   } else {
     alert(`Failed to update price: ${result ? result.error : 'Unknown error'}`);
-    const currentRoom = window.GrootStore.getRoom(roomId);
     if (currentRoom) input.value = currentRoom.price; // Revert UI
   }
 }
@@ -339,11 +343,12 @@ async function saveCardPrice(roomId) {
   btn.innerHTML = originalText;
   btn.disabled = false;
 
+  const currentRoom = result.room || window.GrootStore.getRoom(roomId);
+
   if (result && result.success) {
-    showToast(`Updated price for ${roomId.toUpperCase()} to ₹${newPrice.toLocaleString()}`);
+    showToast(`Updated price for ${currentRoom ? currentRoom.name : 'Room'} to ₹${newPrice.toLocaleString()}`);
   } else {
     alert(`Failed to update price: ${result ? result.error : 'Unknown error'}`);
-    const currentRoom = window.GrootStore.getRoom(roomId);
     if (currentRoom) input.value = currentRoom.price; // Revert UI
   }
 }

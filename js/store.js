@@ -17,12 +17,12 @@ const STORAGE_KEY_AUTH = 'groot_admin_auth_v1';
 const TEMPORARY_ADMIN_USERNAME = 'admin';
 const TEMPORARY_ADMIN_PASSWORD = 'groot2026';
 
-// DEFAULT ROOMS — Exact required room names
-const DEFAULT_ROOMS = [
-  {
-    id: 'standard',
+// DEFAULT ROOM METADATA FOR UI ASSETS & FALLBACKS
+const DEFAULT_ROOM_METADATA = {
+  standard: {
+    slug: 'standard',
     name: 'Standard',
-    price: 2500,
+    defaultPrice: 2500,
     status: 'available',
     tagline: 'Cozy & comfortable double bedroom',
     shortDescription: 'Warm, well-appointed room perfect for couples or solo travelers seeking a peaceful stay in the Nilgiris.',
@@ -39,10 +39,10 @@ const DEFAULT_ROOMS = [
       { label: 'Electric Kettle & Tea' }
     ]
   },
-  {
-    id: 'aframe',
+  aframe: {
+    slug: 'aframe',
     name: 'A-frame',
-    price: 4500,
+    defaultPrice: 4500,
     status: 'available',
     tagline: 'Signature architectural timber cabin',
     shortDescription: 'Distinctive triangular architectural cabin with exposed timber beams, high ceilings, and forest ambiance.',
@@ -59,10 +59,10 @@ const DEFAULT_ROOMS = [
       { label: 'Campfire & Garden Access' }
     ]
   },
-  {
-    id: 'suite',
+  suite: {
+    slug: 'suite',
     name: 'Luxurious suit',
-    price: 5500,
+    defaultPrice: 5500,
     status: 'available',
     tagline: 'Spacious premium comfort',
     shortDescription: 'Our most expansive accommodation with elevated furnishings, plush king bed, and private lounge area.',
@@ -79,10 +79,10 @@ const DEFAULT_ROOMS = [
       { label: 'Private Hillside View' }
     ]
   },
-  {
-    id: 'glasshouse',
+  glasshouse: {
+    slug: 'glasshouse',
     name: 'Glass house',
-    price: 5000,
+    defaultPrice: 5000,
     status: 'available',
     tagline: 'Sleep surrounded by the forest',
     shortDescription: 'Panoramic glass walls immersing you directly in the lush green canopy of the Nilgiri hills.',
@@ -99,7 +99,24 @@ const DEFAULT_ROOMS = [
       { label: 'Stargazing Experience' }
     ]
   }
-];
+};
+
+function getMetadataForRoomName(dbRoomName) {
+  const name = (dbRoomName || '').toLowerCase();
+  if (name.includes('a-frame') || name.includes('aframe') || name.includes('signature cabin') || name.includes('cabin')) {
+    return DEFAULT_ROOM_METADATA.aframe;
+  }
+  if (name.includes('glass')) {
+    return DEFAULT_ROOM_METADATA.glasshouse;
+  }
+  if (name.includes('luxur') || name.includes('suite') || name.includes('suit')) {
+    return DEFAULT_ROOM_METADATA.suite;
+  }
+  if (name.includes('standard')) {
+    return DEFAULT_ROOM_METADATA.standard;
+  }
+  return DEFAULT_ROOM_METADATA.standard;
+}
 
 // DEFAULT GALLERY ITEMS
 const DEFAULT_GALLERY = [
@@ -138,7 +155,21 @@ const DEFAULT_SETTINGS = {
 class GrootStore {
   constructor() {
     this.listeners = [];
-    this.roomsData = [...DEFAULT_ROOMS];
+    this.roomsData = Object.values(DEFAULT_ROOM_METADATA).map(m => ({
+      id: m.slug,
+      slug: m.slug,
+      name: m.name,
+      price: m.defaultPrice,
+      status: m.status,
+      tagline: m.tagline,
+      shortDescription: m.shortDescription,
+      longDescription: m.longDescription,
+      maxGuests: m.maxGuests,
+      image: m.image,
+      interiorImage: m.interiorImage,
+      features: m.features,
+      amenities: m.amenities
+    }));
     this.isFetching = false;
     
     // Automatically fetch live Supabase data on init
@@ -159,24 +190,75 @@ class GrootStore {
     if (this.isFetching) return;
     this.isFetching = true;
     try {
-      const { data, error } = await supabase.from('rooms').select('*');
+      // 1. Fetch all rooms from Supabase ordered by name
+      const { data, error } = await supabase
+        .from('rooms')
+        .select('*')
+        .order('name');
+      
       if (error) throw error;
       
-      if (data && data.length > 0) {
-        // Merge Supabase prices/status with local UI metadata (images, icons)
-        this.roomsData = DEFAULT_ROOMS.map(defaultRoom => {
-          // The database uses UUIDs for 'id', but our frontend uses string IDs ('standard').
-          // We map them by matching the database 'slug' to the local 'id'.
-          const dbRoom = data.find(r => r.slug === defaultRoom.id);
-          if (dbRoom) {
-            return {
-              ...defaultRoom,
-              price: dbRoom.price,
-              status: dbRoom.status || defaultRoom.status,
-              supabaseId: dbRoom.id // Store the real UUID for updates
-            };
-          }
-          return defaultRoom;
+      let dbRooms = data || [];
+
+      // 2. Ensure all 4 rooms exist in Supabase (create missing if needed)
+      const requiredKeys = [
+        { key: 'standard', name: 'Standard', price: 2500, max_guests: 3, status: 'available' },
+        { key: 'aframe', name: 'A-frame', price: 4500, max_guests: 4, status: 'available' },
+        { key: 'suite', name: 'Luxurious suit', price: 5500, max_guests: 6, status: 'available' },
+        { key: 'glasshouse', name: 'Glass house', price: 5000, max_guests: 3, status: 'available' }
+      ];
+
+      const missing = requiredKeys.filter(req => {
+        return !dbRooms.some(r => {
+          const meta = getMetadataForRoomName(r.name);
+          return meta.slug === req.key;
+        });
+      });
+
+      if (missing.length > 0) {
+        for (const item of missing) {
+          const meta = DEFAULT_ROOM_METADATA[item.key];
+          const { error: insertErr } = await supabase.from('rooms').insert([{
+            name: meta.name,
+            price: meta.defaultPrice,
+            max_guests: meta.maxGuests,
+            status: meta.status,
+            description: meta.shortDescription,
+            image_url: meta.image,
+            currency: 'INR'
+          }]);
+          if (insertErr) console.error('Insert missing room error:', insertErr);
+        }
+
+        const { data: refetched } = await supabase
+          .from('rooms')
+          .select('*')
+          .order('name');
+        if (refetched) dbRooms = refetched;
+      }
+
+      // 3. Map every Supabase row directly to a room object using actual Supabase rooms.id
+      if (dbRooms.length > 0) {
+        this.roomsData = dbRooms.map(dbRoom => {
+          const meta = getMetadataForRoomName(dbRoom.name);
+          return {
+            id: dbRoom.id, // Actual Supabase UUID
+            uuid: dbRoom.id,
+            slug: meta.slug || 'room',
+            name: dbRoom.name || meta.name,
+            price: dbRoom.price !== null && dbRoom.price !== undefined ? Number(dbRoom.price) : (meta.defaultPrice || 0),
+            status: dbRoom.status || meta.status || 'available',
+            tagline: meta.tagline || '',
+            shortDescription: dbRoom.description || meta.shortDescription || '',
+            longDescription: meta.longDescription || dbRoom.description || '',
+            maxGuests: dbRoom.max_guests || meta.maxGuests || 2,
+            image: dbRoom.image_url || meta.image || '',
+            interiorImage: meta.interiorImage || dbRoom.image_url || '',
+            features: meta.features || [],
+            amenities: meta.amenities || [],
+            currency: dbRoom.currency || 'INR',
+            updatedAt: dbRoom.updated_at
+          };
         });
         this._notify();
       }
@@ -193,30 +275,42 @@ class GrootStore {
 
   getRoom(id) {
     const rooms = this.getRooms();
-    return rooms.find(r => r.id === id) || rooms[0];
+    if (!id) return rooms[0];
+    const search = String(id).trim().toLowerCase();
+
+    // 1. Exact ID (UUID) match
+    let match = rooms.find(r => r.id === id || String(r.id).toLowerCase() === search);
+    if (match) return match;
+
+    // 2. Slug match ('standard', 'aframe', 'suite', 'glasshouse')
+    match = rooms.find(r => r.slug === search);
+    if (match) return match;
+
+    // 3. Case-insensitive substring match on name
+    match = rooms.find(r => r.name.toLowerCase().includes(search));
+    if (match) return match;
+
+    return rooms[0];
   }
 
   async updateRoomPrice(id, newPrice) {
-    const price = parseInt(newPrice, 10);
-    if (isNaN(price) || price < 0) return { success: false, error: 'Invalid price' };
+    const price = Number(newPrice);
+    if (isNaN(price) || price < 0) return { success: false, error: 'Please enter a valid price amount.' };
     
-    // Find the room to get its real Supabase UUID
+    // Find room by id (Supabase UUID or slug match)
     const room = this.getRoom(id);
-    if (!room) return { success: false, error: 'Room not found locally' };
-    
-    // If we haven't fetched from Supabase yet or the row is missing, we can't update it
-    if (!room.supabaseId) {
-      return { success: false, error: 'Cannot update: Room not linked to Supabase database yet.' };
+    if (!room || !room.id) {
+      return { success: false, error: 'Room not found.' };
     }
 
     try {
       const { data, error } = await supabase
         .from('rooms')
         .update({ 
-          price, 
+          price: price, 
           updated_at: new Date().toISOString() 
         })
-        .eq('id', room.supabaseId)
+        .eq('id', room.id)
         .select();
         
       if (error) {
@@ -224,14 +318,10 @@ class GrootStore {
         return { success: false, error: error.message };
       }
       
-      if (data && data.length > 0) {
-        // Update local state instantly on success
-        this.roomsData = this.roomsData.map(r => r.id === id ? { ...r, price } : r);
-        this._notify();
-        return { success: true, room: this.getRoom(id) };
-      }
-      
-      return { success: false, error: 'Update returned zero rows (Check RLS policies).' };
+      // Update local state on success
+      this.roomsData = this.roomsData.map(r => r.id === room.id ? { ...r, price } : r);
+      this._notify();
+      return { success: true, room: this.getRoom(room.id) };
       
     } catch (err) {
       console.error('Network error during update:', err);

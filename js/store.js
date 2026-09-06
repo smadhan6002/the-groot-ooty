@@ -120,22 +120,22 @@ function getMetadataForRoomName(dbRoomName) {
 
 // DEFAULT GALLERY ITEMS
 const DEFAULT_GALLERY = [
-  { id: 'gal-1', url: _getImg('gallery', '1000032834_professional_4k.webp', 'assets/images/1000032834_professional_4k.webp'), title: 'The Groot Property Grounds & Garden', category: 'property', assignedRoom: 'property', enabled: true, order: 1 },
-  { id: 'gal-2', url: _getImg('gallery', '1000032835_professional_4k.webp', 'assets/images/1000032835_professional_4k.webp'), title: 'Nilgiri Morning Mist & Mountain Vista', category: 'nature', assignedRoom: 'property', enabled: true, order: 2 },
-  { id: 'gal-3', url: _getImg('room-images', '1000032838_professional_4k.webp', 'assets/images/1000032838_professional_4k.webp'), title: 'A-frame Cabin Exterior & Architecture', category: 'rooms', assignedRoom: 'aframe', enabled: true, order: 3 },
-  { id: 'gal-4', url: _getImg('room-images', '1000032839_professional_4k.webp', 'assets/images/1000032839_professional_4k.webp'), title: 'Glass house Forest View Panorama', category: 'rooms', assignedRoom: 'glasshouse', enabled: true, order: 4 },
-  { id: 'gal-5', url: _getImg('room-images', '1000032836_professional_4k.webp', 'assets/images/1000032836_professional_4k.webp'), title: 'Luxurious suit Bedroom & Living Space', category: 'rooms', assignedRoom: 'suite', enabled: true, order: 5 },
-  { id: 'gal-6', url: _getImg('room-images', '1000032837_professional_4k.webp', 'assets/images/1000032837_professional_4k.webp'), title: 'Standard Room Warm Interior', category: 'rooms', assignedRoom: 'standard', enabled: true, order: 6 },
-  { id: 'gal-7', url: _getImg('experience-images', '1000032840_professional_4k.webp', 'assets/images/1000032840_professional_4k.webp'), title: 'Tea Plantation & Nature Trails', category: 'nature', assignedRoom: 'property', enabled: true, order: 7 },
-  { id: 'gal-8', url: _getImg('experience-images', '1000032841_professional_4k.webp', 'assets/images/1000032841_professional_4k.webp'), title: 'Evening Campfire Under Starlit Sky', category: 'campfire', assignedRoom: 'property', enabled: true, order: 8 },
-  { id: 'gal-9', url: _getImg('gallery', 'IMG-20260821-WA0034_4k.webp', 'assets/images/IMG-20260821-WA0034_4k.webp'), title: 'Main Stay Entrance & Courtyard', category: 'property', assignedRoom: 'property', enabled: true, order: 9 },
-  { id: 'gal-10', url: _getImg('experience-images', 'IMG-20260821-WA0036_4k.webp', 'assets/images/IMG-20260821-WA0036_4k.webp'), title: 'Outdoor Garden Gathering & Seating', category: 'campfire', assignedRoom: 'property', enabled: true, order: 10 },
-  { id: 'gal-11', url: _getImg('gallery', 'IMG-20260821-WA0037_4k.webp', 'assets/images/IMG-20260821-WA0037_4k.webp'), title: 'A-frame Timber Architecture Detail', category: 'rooms', assignedRoom: 'aframe', enabled: true, order: 11 },
-  { id: 'gal-12', url: _getImg('experience-images', 'IMG-20260821-WA0041_4k.webp', 'assets/images/IMG-20260821-WA0041_4k.webp'), title: 'Fresh Authentic Home-Cooked Meals', category: 'food', assignedRoom: 'property', enabled: true, order: 12 },
-  { id: 'gal-13', url: _getImg('room-images', 'gallery-new-img-1_4k.webp', 'assets/images/gallery-new-img-1_4k.webp'), title: 'Boutique Room Details & Decor', category: 'rooms', assignedRoom: 'suite', enabled: true, order: 13 },
-  { id: 'gal-14', url: _getImg('room-images', 'gallery-new-img-2_4k.webp', 'assets/images/gallery-new-img-2_4k.webp'), title: 'Glass house Twilight Glow', category: 'rooms', assignedRoom: 'glasshouse', enabled: true, order: 14 },
-  { id: 'gal-15', url: _getImg('room-images', 'gallery-new-img-3_4k.webp', 'assets/images/gallery-new-img-3_4k.webp'), title: 'Cozy Mountain Bedroom Setting', category: 'rooms', assignedRoom: 'standard', enabled: true, order: 15 },
-  { id: 'gal-16', url: _getImg('experience-images', 'gallery-new-img-7_4k.webp', 'assets/images/gallery-new-img-7_4k.webp'), title: 'Outdoor Firepit Night Setting', category: 'campfire', assignedRoom: 'property', enabled: true, order: 16 }
+  { id: 'gal-1', url: 'assets/images/1000032834_professional_4k.webp', title: 'The Groot Property Grounds & Garden', category: 'property', assignedRoom: 'property', enabled: true, order: 1 },
+  { id: 'gal-2', url: 'assets/images/1000032835_professional_4k.webp', title: 'Nilgiri Morning Mist & Mountain Vista', category: 'nature', assignedRoom: 'property', enabled: true, order: 2 },
+  { id: 'gal-3', url: 'assets/images/1000032838_professional_4k.webp', title: 'A-frame Cabin Exterior & Architecture', category: 'rooms', assignedRoom: 'aframe', enabled: true, order: 3 },
+  { id: 'gal-4', url: 'assets/images/1000032839_professional_4k.webp', title: 'Glass house Forest View Panorama', category: 'rooms', assignedRoom: 'glasshouse', enabled: true, order: 4 },
+  { id: 'gal-5', url: 'assets/images/1000032836_professional_4k.webp', title: 'Luxurious suit Bedroom & Living Space', category: 'rooms', assignedRoom: 'suite', enabled: true, order: 5 },
+  { id: 'gal-6', url: 'assets/images/1000032837_professional_4k.webp', title: 'Standard Room Warm Interior', category: 'rooms', assignedRoom: 'standard', enabled: true, order: 6 },
+  { id: 'gal-7', url: 'assets/images/1000032840_professional_4k.webp', title: 'Tea Plantation & Nature Trails', category: 'nature', assignedRoom: 'property', enabled: true, order: 7 },
+  { id: 'gal-8', url: 'assets/images/1000032841_professional_4k.webp', title: 'Evening Campfire Under Starlit Sky', category: 'campfire', assignedRoom: 'property', enabled: true, order: 8 },
+  { id: 'gal-9', url: 'assets/images/IMG-20260821-WA0034_4k.webp', title: 'Main Stay Entrance & Courtyard', category: 'property', assignedRoom: 'property', enabled: true, order: 9 },
+  { id: 'gal-10', url: 'assets/images/IMG-20260821-WA0036_4k.webp', title: 'Outdoor Garden Gathering & Seating', category: 'campfire', assignedRoom: 'property', enabled: true, order: 10 },
+  { id: 'gal-11', url: 'assets/images/IMG-20260821-WA0037_4k.webp', title: 'A-frame Timber Architecture Detail', category: 'rooms', assignedRoom: 'aframe', enabled: true, order: 11 },
+  { id: 'gal-12', url: 'assets/images/IMG-20260821-WA0041_4k.webp', title: 'Fresh Authentic Home-Cooked Meals', category: 'food', assignedRoom: 'property', enabled: true, order: 12 },
+  { id: 'gal-13', url: 'assets/images/gallery-new-img-1_4k.webp', title: 'Boutique Room Details & Decor', category: 'rooms', assignedRoom: 'suite', enabled: true, order: 13 },
+  { id: 'gal-14', url: 'assets/images/gallery-new-img-2_4k.webp', title: 'Glass house Twilight Glow', category: 'rooms', assignedRoom: 'glasshouse', enabled: true, order: 14 },
+  { id: 'gal-15', url: 'assets/images/gallery-new-img-3_4k.webp', title: 'Cozy Mountain Bedroom Setting', category: 'rooms', assignedRoom: 'standard', enabled: true, order: 15 },
+  { id: 'gal-16', url: 'assets/images/gallery-new-img-7_4k.webp', title: 'Outdoor Firepit Night Setting', category: 'campfire', assignedRoom: 'property', enabled: true, order: 16 }
 ];
 
 // DEFAULT SETTINGS

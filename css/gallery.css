@@ -65,7 +65,7 @@
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--card-bg);
+  background: #1c261d;
   box-shadow: var(--shadow-card);
   cursor: pointer;
   aspect-ratio: 4/3;
@@ -83,7 +83,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s var(--ease-snappy);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.5s var(--ease-snappy);
+}
+
+.gallery-item img.loaded,
+.gallery-item img[src] {
+  opacity: 1;
 }
 
 .gallery-item:hover img {

@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initParallax();
   initPhoneLinks();
   setActiveNavLink();
+  initOotyDirections();
 });
 
 /* ---------------------------------------------------------
@@ -191,3 +192,46 @@ function scrollToSection(id) {
     el.scrollIntoView({ behavior: 'smooth' });
   }
 }
+
+/* ---------------------------------------------------------
+   OOTY DIRECTIONS CARDS
+   --------------------------------------------------------- */
+
+function initOotyDirections() {
+  const cards = document.querySelectorAll('.ooty-card-full');
+  if (!cards.length) return;
+
+  const origin = "The Groot Ooty, 204, Showdown Road, Mellakshminarayanapuram, Pudumund, Ooty, Tamil Nadu 643007";
+
+  const openGoogleMapsDirections = (destination) => {
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  cards.forEach(card => {
+    card.style.cursor = 'pointer';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+
+    const handleAction = (e) => {
+      // Prevent triggering if clicking a link inside the card
+      if (e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) return;
+      
+      const titleEl = card.querySelector('.ooty-card-title-full');
+      if (titleEl) {
+        const placeName = titleEl.textContent.trim();
+        const destination = `${placeName}, Ooty, Tamil Nadu`;
+        openGoogleMapsDirections(destination);
+      }
+    };
+
+    card.addEventListener('click', handleAction);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleAction(e);
+      }
+    });
+  });
+}
+

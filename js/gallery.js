@@ -1,45 +1,59 @@
 /* =========================================================
    THE GROOT OOTY — Gallery JS (Masonry, Category Filters, Lightbox)
-   Integrated with centralized GrootStore
+   Integrated with centralized GrootStore & Storage URL fallbacks
    ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
   initGalleryFilters();
   initLightbox();
+
+  if (window.GrootStore) {
+    window.GrootStore.subscribe(() => {
+      initGalleryFilters();
+    });
+  }
 });
 
 let currentIndex = 0;
 let currentList = [];
 
-const _getImg = (bucket, file, fallback) => window.getStorageImageUrl ? window.getStorageImageUrl(bucket, file) : fallback;
+const _getImg = (bucket, file, fallback) => {
+  if (typeof window !== 'undefined' && window.getStorageImageUrl) {
+    return window.getStorageImageUrl(bucket, file);
+  }
+  return fallback;
+};
 
 function getGalleryDataset() {
   if (typeof window !== 'undefined' && window.GrootStore) {
     const items = window.GrootStore.getGallery(false);
-    return items.map(item => ({
-      src: item.url,
-      alt: item.title,
-      category: item.category || 'property',
-      assignedRoom: item.assignedRoom || 'property'
-    }));
+    if (items && items.length > 0) {
+      return items.map(item => ({
+        src: item.url,
+        alt: item.title,
+        category: item.category || 'property',
+        assignedRoom: item.assignedRoom || 'property',
+        fallback: item.url.startsWith('http') ? item.url : `assets/images/${item.url.split('/').pop()}`
+      }));
+    }
   }
 
   return [
-    { src: _getImg('gallery', '1000032834_professional_4k.webp', 'assets/images/1000032834_professional_4k.webp'), alt: 'Property exterior and garden path at The Groot Ooty', category: 'property' },
-    { src: _getImg('gallery', '1000032835_professional_4k.webp', 'assets/images/1000032835_professional_4k.webp'), alt: 'Misty Nilgiri mountain landscape', category: 'nature' },
-    { src: _getImg('experience-images', '1000032841_professional_4k.webp', 'assets/images/1000032841_professional_4k.webp'), alt: 'Property illuminated at night', category: 'campfire' },
-    { src: _getImg('room-images', '1000032838_professional_4k.webp', 'assets/images/1000032838_professional_4k.webp'), alt: 'A-frame wooden cabin exterior and interior', category: 'rooms' },
-    { src: _getImg('room-images', '1000032839_professional_4k.webp', 'assets/images/1000032839_professional_4k.webp'), alt: 'Glass house panoramic forest view bedroom', category: 'rooms' },
-    { src: _getImg('room-images', '1000032836_professional_4k.webp', 'assets/images/1000032836_professional_4k.webp'), alt: 'Luxurious suit spacious bedroom interior', category: 'rooms' },
-    { src: _getImg('room-images', '1000032837_professional_4k.webp', 'assets/images/1000032837_professional_4k.webp'), alt: 'Standard room cozy bedroom interior', category: 'rooms' },
-    { src: _getImg('experience-images', 'IMG-20260821-WA0036_4k.webp', 'assets/images/IMG-20260821-WA0036_4k.webp'), alt: 'Campfire evening under the Nilgiri stars', category: 'campfire' },
-    { src: _getImg('experience-images', 'IMG-20260821-WA0041_4k.webp', 'assets/images/IMG-20260821-WA0041_4k.webp'), alt: 'Authentic South Indian home-cooked meal spread', category: 'food' },
-    { src: _getImg('experience-images', '1000032840_professional_4k.webp', 'assets/images/1000032840_professional_4k.webp'), alt: 'Lush Nilgiri tea foliage and greenery', category: 'nature' },
-    { src: _getImg('gallery', 'IMG-20260821-WA0034_4k.webp', 'assets/images/IMG-20260821-WA0034_4k.webp'), alt: 'Main stay entrance and courtyard', category: 'property' },
-    { src: _getImg('room-images', 'gallery-new-img-1_4k.webp', 'assets/images/gallery-new-img-1_4k.webp'), alt: 'Boutique room detail and interior finish', category: 'rooms' },
-    { src: _getImg('room-images', 'gallery-new-img-2_4k.webp', 'assets/images/gallery-new-img-2_4k.webp'), alt: 'Glass house twilight forest view', category: 'rooms' },
-    { src: _getImg('room-images', 'gallery-new-img-3_4k.webp', 'assets/images/gallery-new-img-3_4k.webp'), alt: 'Comfortable bedroom furnishings', category: 'rooms' },
-    { src: _getImg('experience-images', 'gallery-new-img-7_4k.webp', 'assets/images/gallery-new-img-7_4k.webp'), alt: 'Outdoor garden campfire setup', category: 'campfire' }
+    { src: _getImg('gallery', '1000032834_professional_4k.webp', 'assets/images/1000032834_professional_4k.webp'), fallback: 'assets/images/1000032834_professional_4k.webp', alt: 'Property exterior and garden path at The Groot Ooty', category: 'property' },
+    { src: _getImg('gallery', '1000032835_professional_4k.webp', 'assets/images/1000032835_professional_4k.webp'), fallback: 'assets/images/1000032835_professional_4k.webp', alt: 'Misty Nilgiri mountain landscape', category: 'nature' },
+    { src: _getImg('experience-images', '1000032841_professional_4k.webp', 'assets/images/1000032841_professional_4k.webp'), fallback: 'assets/images/1000032841_professional_4k.webp', alt: 'Property illuminated at night', category: 'campfire' },
+    { src: _getImg('room-images', '1000032838_professional_4k.webp', 'assets/images/1000032838_professional_4k.webp'), fallback: 'assets/images/1000032838_professional_4k.webp', alt: 'A-frame wooden cabin exterior and interior', category: 'rooms' },
+    { src: _getImg('room-images', '1000032839_professional_4k.webp', 'assets/images/1000032839_professional_4k.webp'), fallback: 'assets/images/1000032839_professional_4k.webp', alt: 'Glass house panoramic forest view bedroom', category: 'rooms' },
+    { src: _getImg('room-images', '1000032836_professional_4k.webp', 'assets/images/1000032836_professional_4k.webp'), fallback: 'assets/images/1000032836_professional_4k.webp', alt: 'Luxurious suit spacious bedroom interior', category: 'rooms' },
+    { src: _getImg('room-images', '1000032837_professional_4k.webp', 'assets/images/1000032837_professional_4k.webp'), fallback: 'assets/images/1000032837_professional_4k.webp', alt: 'Standard room cozy bedroom interior', category: 'rooms' },
+    { src: _getImg('experience-images', 'IMG-20260821-WA0036_4k.webp', 'assets/images/IMG-20260821-WA0036_4k.webp'), fallback: 'assets/images/IMG-20260821-WA0036_4k.webp', alt: 'Campfire evening under the Nilgiri stars', category: 'campfire' },
+    { src: _getImg('experience-images', 'IMG-20260821-WA0041_4k.webp', 'assets/images/IMG-20260821-WA0041_4k.webp'), fallback: 'assets/images/IMG-20260821-WA0041_4k.webp', alt: 'Authentic South Indian home-cooked meal spread', category: 'food' },
+    { src: _getImg('experience-images', '1000032840_professional_4k.webp', 'assets/images/1000032840_professional_4k.webp'), fallback: 'assets/images/1000032840_professional_4k.webp', alt: 'Lush Nilgiri tea foliage and greenery', category: 'nature' },
+    { src: _getImg('gallery', 'IMG-20260821-WA0034_4k.webp', 'assets/images/IMG-20260821-WA0034_4k.webp'), fallback: 'assets/images/IMG-20260821-WA0034_4k.webp', alt: 'Main stay entrance and courtyard', category: 'property' },
+    { src: _getImg('room-images', 'gallery-new-img-1_4k.webp', 'assets/images/gallery-new-img-1_4k.webp'), fallback: 'assets/images/gallery-new-img-1_4k.webp', alt: 'Boutique room detail and interior finish', category: 'rooms' },
+    { src: _getImg('room-images', 'gallery-new-img-2_4k.webp', 'assets/images/gallery-new-img-2_4k.webp'), fallback: 'assets/images/gallery-new-img-2_4k.webp', alt: 'Glass house twilight forest view', category: 'rooms' },
+    { src: _getImg('room-images', 'gallery-new-img-3_4k.webp', 'assets/images/gallery-new-img-3_4k.webp'), fallback: 'assets/images/gallery-new-img-3_4k.webp', alt: 'Comfortable bedroom furnishings', category: 'rooms' },
+    { src: _getImg('experience-images', 'gallery-new-img-7_4k.webp', 'assets/images/gallery-new-img-7_4k.webp'), fallback: 'assets/images/gallery-new-img-7_4k.webp', alt: 'Outdoor garden campfire setup', category: 'campfire' }
   ];
 }
 
@@ -52,12 +66,18 @@ function initGalleryFilters() {
   if (!masonry) return;
 
   const dataset = getGalleryDataset();
-  currentList = [...dataset];
+  const activeBtn = document.querySelector('.gallery-filter-btn.active');
+  const activeCategory = activeBtn ? activeBtn.dataset.category : 'all';
+
+  currentList = activeCategory === 'all'
+    ? [...dataset]
+    : dataset.filter(item => item.category === activeCategory || item.assignedRoom === activeCategory);
+
   renderGallery(currentList);
 
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.onclick = () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
@@ -68,7 +88,7 @@ function initGalleryFilters() {
         : allImages.filter(item => item.category === cat || item.assignedRoom === cat);
 
       renderGallery(currentList);
-    });
+    };
   });
 }
 
@@ -85,12 +105,24 @@ function renderGallery(images) {
     item.setAttribute('tabindex', '0');
     item.setAttribute('aria-label', `View photo: ${img.alt}`);
 
-    item.innerHTML = `
-      <img src="${img.src}" alt="${img.alt}" loading="lazy" decoding="async" />
-      <div class="gallery-item-overlay">
-        <span class="gallery-item-title">${img.alt}</span>
-      </div>
-    `;
+    const imgTag = document.createElement('img');
+    imgTag.src = img.src;
+    imgTag.alt = img.alt;
+    imgTag.loading = 'lazy';
+    imgTag.decoding = 'async';
+    if (img.fallback && img.fallback !== img.src) {
+      imgTag.onerror = function() {
+        this.onerror = null;
+        this.src = img.fallback;
+      };
+    }
+
+    const overlay = document.createElement('div');
+    overlay.className = 'gallery-item-overlay';
+    overlay.innerHTML = `<span class="gallery-item-title">${img.alt}</span>`;
+
+    item.appendChild(imgTag);
+    item.appendChild(overlay);
 
     item.addEventListener('click', () => openLightbox(i));
     item.addEventListener('keydown', (e) => {
@@ -157,6 +189,12 @@ function openLightbox(index) {
   imgEl.src = item.src;
   imgEl.alt = item.alt;
   capEl.textContent = item.alt;
+  if (item.fallback && item.fallback !== item.src) {
+    imgEl.onerror = function() {
+      this.onerror = null;
+      this.src = item.fallback;
+    };
+  }
 
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';

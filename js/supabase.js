@@ -14,3 +14,8 @@ export function getStorageImageUrl(bucket, fileName) {
   const { data } = supabase.storage.from(bucket).getPublicUrl(fileName);
   return data.publicUrl;
 }
+
+if (typeof window !== 'undefined') {
+  window.supabase = supabase;
+  window.getStorageImageUrl = getStorageImageUrl;
+}
